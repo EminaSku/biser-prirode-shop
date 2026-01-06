@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  CANCELED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(USER)
+  createdAt    DateTime @default(now())
+
+  cartItems CartItem[]
+  orders    Order[]
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  price       Int // u centima: 1999 = 19.99
+  stock       Int      @default(0)
+  category    String?
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+}
+
+model CartItem {
+  id        String @id @default(cuid())
+  userId    String
+  productId String
+  quantity  Int    @default(1)
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+}
+
+model Order {
+  id        String      @id @default(cuid())
+  userId    String?
+  name      String
+  phone     String
+  address   String
+  total     Int
+  status    OrderStatus @default(PENDING)
+  createdAt DateTime    @default(now())
+
+  items OrderItem[]
+  user  User?       @relation(fields: [userId], references: [id])
+}
+
+model OrderItem {
+  id        String @id @default(cuid())
+  orderId   String
+  productId String
+  qty       Int
+  price     Int // price at purchase time
+
+  order   Order   @relation(fields: [orderId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+}
