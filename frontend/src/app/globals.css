@@ -1,0 +1,867 @@
+@import "tailwindcss";
+
+/* =========================
+   GLOBAL THEME (Sisic style)
+   ========================= */
+:root{
+  /* Fonts */
+  --font-main: 'Poppins', sans-serif;
+  --font-headers: 'Barlow', sans-serif;
+  --font-subheaders: 'Sacramento', cursive;
+
+  /* Brand palette */
+  --main: #9C2330;        /* primary red */
+  --second: #BDA881;      /* beige/gold */
+  --gray: #F1EEE7;        /* warm gray section background */
+  --white: #ffffff;
+
+  /* Text / neutrals */
+  --black: #191716;
+  --black-text: #282834;
+  --black-light: rgba(19, 19, 19, 0.7);
+
+  /* UI */
+  --line: rgba(0, 0, 0, 0.10);
+  --shadow: 0 10px 25px rgba(0,0,0,0.06);
+  --white-text: rgba(255, 255, 255, 0.75);
+
+  :root{
+  --bp-bg:
+    radial-gradient(1200px 380px at 50% 42%, rgba(156,35,48,.55), rgba(0,0,0,0) 62%),
+    radial-gradient(900px 420px at 50% 40%, rgba(0,0,0,.55), rgba(0,0,0,.92) 75%),
+    #080808;
+
+  --bp-glow:
+    radial-gradient(220px 220px at 18% 36%, rgba(189,168,129,.18), transparent 65%),
+    radial-gradient(260px 260px at 82% 72%, rgba(156,35,48,.22), transparent 65%);
+}
+
+}
+
+html{
+  font-size: 10px;
+  scroll-behavior: smooth;
+}
+
+html, body{
+  height: 100%;
+}
+/*)}"
+body{
+  margin: 0;
+  font-family: var(--font-main);
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--black-text);
+  background: var(--white);
+}*/
+
+body{
+  margin: 0;
+  font-family: var(--font-main);
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--black-text);
+
+  /* ✅ JEDAN BACKGROUND ZA SVE (nema prelaza navbar/hero) */
+  background: var(--bp-bg);
+  min-height: 100vh;
+}
+
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--bp-bg);
+  pointer-events: none;
+}
+
+
+
+/* =========================
+   TYPOGRAPHY
+   ========================= */
+/* ✅ zamijeni postojeći h1..h6 blok ovim */
+:where(h1,h2,h3,h4,h5,h6){
+  font-family: var(--font-headers);
+  line-height: 1.2;
+  margin: 0 0 10px;
+  color: inherit; /* može ostati, ali sad ne ubija Tailwind klase */
+}
+
+
+
+.subtitle,
+.script{
+  font-family: var(--font-subheaders);
+}
+
+p{
+  margin: 0 0 12px;
+}
+
+a{
+  color: var(--main);
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+a:hover{
+  color: var(--second);
+}
+
+/* =========================
+   LAYOUT HELPERS
+   ========================= */
+.section{
+  padding: 60px 0;
+}
+
+.section--gray{
+  background: var(--gray);
+}
+
+/* =========================
+   CARD
+   ========================= */
+.card{
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+/* =========================
+   BUTTONS
+   ========================= */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+
+  background: var(--main);
+  color: var(--white);
+
+  font-family: var(--font-headers);
+  font-weight: 700;
+  letter-spacing: 0.4px;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn:hover{
+  background: var(--second);
+  color: var(--black-text);
+}
+
+.btn-outline{
+  background: transparent;
+  border-color: var(--main);
+  color: var(--main);
+}
+
+.btn-outline:hover{
+  background: var(--main);
+  color: var(--white);
+}
+
+/* =========================
+   FORM INPUT
+   ========================= */
+.input{
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  outline: none;
+}
+
+.input:focus{
+  border-color: rgba(156, 35, 48, 0.45);
+  box-shadow: 0 0 0 4px rgba(156, 35, 48, 0.12);
+}
+
+/* =========================
+   ADMIN LAYOUT (SAFE)
+   (ne dira public .btn/.card)
+   ========================= */
+.adminShell{
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+.adminSidebar{
+  background: rgba(255,255,255,.85);
+  border-right: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+  padding: 16px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.adminBrand{
+  font-weight: 900;
+  font-size: 16px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(156,35,48,.10), rgba(189,168,129,.12));
+  border: 1px solid rgba(0,0,0,.08);
+  margin-bottom: 12px;
+}
+
+.adminNav{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.adminLink{
+  text-decoration: none;
+  color: var(--black-text);
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+}
+
+.adminLink:hover{
+  background: var(--white);
+  border-color: var(--line);
+}
+
+.adminDivider{
+  height: 1px;
+  background: var(--line);
+  margin: 10px 0;
+}
+
+.adminMain{
+  padding: 18px;
+}
+
+.adminTopbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(8px);
+}
+
+.adminTopTitle{
+  font-weight: 900;
+}
+
+.adminContent{
+  margin-top: 14px;
+}
+
+/* =========================
+   TABLE
+   ========================= */
+.tableWrap{
+  overflow: auto;
+}
+
+.table{
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table th,
+.table td{
+  text-align: left;
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.table th{
+  color: rgba(40, 40, 52, 0.65);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+/* =========================
+   BADGES
+   ========================= */
+.badge{
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 12px;
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.badgePending{ background:#fff7ed; border-color:#fed7aa; color:#9a3412; }
+.badgeShipped{ background:#ecfeff; border-color:#a5f3fc; color:#155e75; }
+.badgePaid{ background:#ecfdf5; border-color:#bbf7d0; color:#166534; }
+.badgeCanceled{ background:#fef2f2; border-color:#fecaca; color:#991b1b; }
+
+/* =========================
+   BISER NAVBAR (Sisic layout)
+   ========================= */
+
+   /*
+.bpHeader{
+  position: relative;
+  color: #fff;
+
+  /* malo zategnutiji padding (da ne djeluje pre-široko/visoko) *//*
+  padding: 22px 0 18px;
+
+  background:
+    radial-gradient(1200px 380px at 50% 42%, rgba(156,35,48,.55), rgba(0,0,0,0) 62%),
+    radial-gradient(900px 420px at 50% 40%, rgba(0,0,0,.55), rgba(0,0,0,.92) 75%),
+    #080808;
+
+  overflow: hidden;
+}
+*/
+.bpHeader{
+  position: relative;
+  color: #fff;
+  padding: 22px 0 18px;
+  background: #080808; /* ✅ navbar jedna boja */
+  overflow: hidden;
+}
+
+.bpHeaderGlow{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background: var(--bp-glow);
+  opacity: .25; /* ✅ da ne vuče crveno po navbaru */
+}
+
+
+
+.bpHeaderInner{
+  /* ✅ SUŽENO: prije 1180px → sada 960px */
+  width: min(960px, calc(100% - 44px));
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.bpTopRow{
+  display:grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items:center;
+  gap: 14px;
+}
+
+.bpFollow{
+  display:flex;
+  align-items:center;
+  gap: 14px;
+  opacity: .9;
+  font-family: var(--font-headers);
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+
+.bpFollowText{ color: rgba(255,255,255,.82); }
+.bpDash{ color: rgba(255,255,255,.55); }
+
+.bpIcon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:28px;
+  height:28px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.22);
+  color:#fff;
+  text-decoration:none;
+  transition:.2s ease;
+}
+.bpIcon:hover{
+  border-color: rgba(255,255,255,.5);
+  transform: translateY(-1px);
+}
+
+.bpLogoWrap{
+  display:flex;
+  justify-content:center;
+}
+
+.bpLogoLink{ display:inline-flex; }
+
+.bpLogo{
+  height: 58px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 22px rgba(0,0,0,.35));
+}
+
+.bpRight{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap: 10px;
+}
+
+.bpMiniLink{
+  color: rgba(255,255,255,.88);
+  font-family: var(--font-headers);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .02em;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+  transition: .2s ease;
+}
+.bpMiniLink:hover{ background: rgba(255,255,255,.12); }
+
+.bpMiniBtn{
+  color: rgba(255,255,255,.92);
+  font-family: var(--font-headers);
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: .02em;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.08);
+  cursor: pointer;
+  transition: .2s ease;
+}
+.bpMiniBtn:hover{ background: rgba(255,255,255,.14); }
+
+.bpNav{
+  margin-top: 16px;
+  display:flex;
+  justify-content:center;
+
+  /* ✅ malo manji razmak da djeluje uži */
+  gap: 34px;
+
+  flex-wrap: wrap;
+}
+
+.bpNavLink{
+  color: rgba(255,255,255,.92);
+  font-family: var(--font-headers);
+  font-weight: 700;
+  letter-spacing: .2px;
+  padding: 10px 2px;
+  text-decoration:none;
+  transition: .2s ease;
+}
+.bpNavLink:hover{ color: rgba(255,255,255,.72); }
+
+/* Mobile */
+@media (max-width: 720px){
+  .bpHeaderInner{
+    width: min(680px, calc(100% - 32px));
+  }
+  .bpTopRow{
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 12px;
+  }
+  .bpRight{
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .bpNav{ gap: 18px; }
+}
+/* =========================
+   BISER HERO (parallax like Šišić)
+   ========================= */
+
+.bpHero{
+  position: relative;
+  overflow: hidden;
+  padding: 34px 0 28px;
+  color: #fff;
+
+  /* default (kad nema miša) */
+  --px: 0px;
+  --py: 0px;
+  --rx: 0deg;
+  --ry: 0deg;
+
+  /* ✅ ključ: TOP FADE da se stopi sa navbarom */
+  background:
+    linear-gradient(to bottom, #080808 0px, rgba(8,8,8,0) 180px),
+    radial-gradient(1200px 520px at 50% 55%, rgba(156,35,48,.60), rgba(0,0,0,0) 62%),
+    radial-gradient(1100px 620px at 50% 55%, rgba(0,0,0,.55), rgba(0,0,0,.92) 78%),
+    #080808;
+}
+
+
+.bpHeroVignette{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(260px 260px at 18% 40%, rgba(189,168,129,.14), transparent 70%),
+    radial-gradient(360px 360px at 82% 70%, rgba(156,35,48,.18), transparent 70%);
+}
+
+.bpHeroInner{
+  width: min(1120px, calc(100% - 48px)); /* ✅ suženje */
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.bpHeroStage{
+  position: relative;
+  min-height: 420px;
+  display: grid;
+  place-items: center;
+  padding: 40px 0 50px;
+}
+
+.bpHeroImg{
+  width: min(760px, 92vw);
+  height: auto;
+  object-fit: contain;
+
+  /* 3D scene */
+  transform-style: preserve-3d;
+  transform:
+    translate3d(calc(var(--px) * -1), calc(var(--py) * -1), 0)
+    rotateX(var(--rx))
+    rotateY(var(--ry));
+  transition: transform 120ms ease-out;
+  filter: drop-shadow(0 28px 50px rgba(0,0,0,.45));
+  user-select: none;
+}
+
+.bpHeroText{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  pointer-events: none;
+
+  transform:
+    translate3d(calc(var(--px) * 0.6), calc(var(--py) * 0.6), 0);
+  transition: transform 120ms ease-out;
+}
+
+.bpHeroTitle{
+  font-family: var(--font-headers);
+  font-weight: 900;
+  letter-spacing: .02em;
+  line-height: .9;
+  text-transform: uppercase;
+
+  font-size: clamp(40px, 7vw, 92px);
+  color: rgba(255,255,255,.96);
+  text-shadow: 0 18px 40px rgba(0,0,0,.55);
+}
+
+.bpHeroTitle span{
+  display: block;
+  margin-top: 8px;
+
+  /* “outlined / transparent” feel */
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255,255,255,0.30);
+  text-shadow: none;
+}
+
+.bpHeroSubtitle{
+  margin-top: 10px;
+  font-family: var(--font-main);
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: rgba(255,255,255,.72);
+}
+
+.bpHeroLeaf{
+  position: absolute;
+  width: 96px;
+  height: 96px;
+  opacity: .85;
+  filter: drop-shadow(0 12px 28px rgba(0,0,0,.35));
+
+  transition: transform 120ms ease-out;
+}
+
+.bpHeroLeaf--left{
+  left: 4%;
+  top: 42%;
+  transform:
+    translate3d(calc(var(--px) * 0.9), calc(var(--py) * 0.9), 0)
+    rotate(-8deg);
+}
+
+.bpHeroLeaf--right{
+  right: 4%;
+  top: 42%;
+  transform:
+    translate3d(calc(var(--px) * 0.9), calc(var(--py) * 0.9), 0)
+    rotate(8deg);
+}
+
+/* Mobile */
+@media (max-width: 720px){
+  .bpHeroStage{ min-height: 360px; padding: 30px 0 40px; }
+  .bpHeroLeaf{ display: none; } /* na mobitelu sakrij listove (čistije) */
+}
+
+/* Accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce){
+  .bpHeroImg, .bpHeroText, .bpHeroLeaf{ transition: none !important; transform: none !important; }
+}
+.bpHero{
+  position: relative;
+  background: transparent; /* ✅ */
+  overflow: visible;
+}
+/* ===== FORCE DARK BP BACKGROUND (FIX) ===== */
+:root{
+  --bp-bg:
+    radial-gradient(1200px 380px at 50% 42%, rgba(156,35,48,.55), rgba(0,0,0,0) 62%),
+    radial-gradient(900px 420px at 50% 40%, rgba(0,0,0,.55), rgba(0,0,0,.92) 75%),
+    #080808;
+
+  --bp-glow:
+    radial-gradient(220px 220px at 18% 36%, rgba(189,168,129,.18), transparent 65%),
+    radial-gradient(260px 260px at 82% 72%, rgba(156,35,48,.22), transparent 65%);
+}
+
+html, body{
+  background: #080808 !important;
+}
+
+body{
+  min-height: 100vh;
+  background: var(--bp-bg, #080808) !important;
+}
+
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--bp-bg, #080808) !important;
+}
+
+/* =========================
+   HARD RESET: JEDNA BOJA SVUDA (NO GRADIENT)
+   Zalijepi NA DNO globals.css
+   ========================= */
+
+:root{
+  --bp-solid: #003822;
+}
+
+/* cijela stranica jedna boja */
+html, body{
+  background: var(--bp-solid) !important;
+}
+
+/* ugasi sve što ti pravi gradient preko body-a */
+body{
+  background: var(--bp-solid) !important;
+  color: #fff; /* da tekst bude vidljiv na crnom */
+}
+
+body::before{
+  content: none !important;
+}
+
+/* navbar i hero isti background */
+.bpHeader,
+.bpHero{
+  background: var(--bp-solid) !important;
+}
+
+/* ugasi glow slojeve */
+.bpHeaderGlow,
+.bpHeroVignette{
+  display: none !important;
+}
+
+/* ako još negdje ima overlay */
+.bpHeader::before,
+.bpHeader::after,
+.bpHero::before,
+.bpHero::after{
+  content: none !important;
+}
+
+/* Gradient samo iza hero slike (mali “halo”) */
+.bpHeroImageWrap{
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate; /* da z-index radi kako treba */
+}
+
+
+.bpHeroImageWrap::before{
+  content:"";
+  position:absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%) translateY(20px) scale(1.08);
+  z-index: 0;
+
+  /* ✅ veličina halo-a (nije ogroman) */
+  width: min(520px, 86vw);
+  height: min(320px, 52vw);
+
+  /* ✅ BIJELI glow */
+  background:
+    radial-gradient(closest-side, rgba(255,255,255,.35), rgba(255,255,255,0) 70%),
+    radial-gradient(closest-side, rgba(255,255,255,.18), rgba(255,255,255,0) 78%);
+
+  filter: blur(22px);
+  opacity: 1;
+  mix-blend-mode: screen; /* pojača glow na tamnoj pozadini */
+  pointer-events:none;
+}
+
+
+.bpHeroImg{
+  position: relative;
+  z-index: 1; /* slika iznad gradienta */
+}
+
+/* ===== HERO TEXT: VEĆA SLOVA KAO ŠIŠIĆ ===== */
+.bpHeroStage{
+  min-height: 560px; /* više prostora da tekst ne “sjeda” na flaše */
+  padding: 56px 0 60px;
+}
+
+.bpHeroTitle{
+  font-size: clamp(72px, 9.5vw, 170px); /* ✅ veće */
+  letter-spacing: .02em;
+  line-height: .88;
+}
+
+.bpHeroTitle span{
+  -webkit-text-stroke: 3px rgba(255,255,255,0.28); /* jači outline */
+}
+
+/* malo spusti tekst (da bude centar kao Šišić) */
+.bpHeroText{
+  transform: translate3d(calc(var(--px) * 0.6), calc(var(--py) * 0.6), 0) translateY(10px);
+}
+
+/* ===== HERO: VEĆI NASLOV (kao Šišić) ===== */
+.bpHeroTitle{
+  font-size: clamp(58px, 9vw, 120px) !important;
+  letter-spacing: .02em;
+}
+
+.bpHeroTitle span{
+  -webkit-text-stroke: 2.6px rgba(255,255,255,0.32) !important;
+  margin-top: 10px;
+}
+
+/* subtitle malo niže da liči na Šišić */
+.bpHeroSubtitle{
+  margin-top: 12px;
+  font-size: 12px;
+  letter-spacing: .22em;
+  opacity: .8;
+}
+
+/* ===== HALO: BIJELI GRADIENT SAMO IZA SLIKE ===== */
+.bpHeroImageWrap{
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+.bpHeroImageWrap::before{
+  content:"";
+  position:absolute;
+  left: 50%;
+  top: 56%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+
+  /* nije ogroman */
+  width: min(560px, 86vw);
+  height: min(320px, 48vw);
+
+  background:
+    radial-gradient(closest-side, rgba(255,255,255,.28), rgba(255,255,255,0) 70%),
+    radial-gradient(closest-side, rgba(255,255,255,.14), rgba(255,255,255,0) 78%);
+
+  filter: blur(18px);
+  opacity: 1;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.bpHeroImg{
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== KAPLJICE (koriste iste klase kao prije) ===== */
+.bpHeroLeaf{
+  width: 74px;     /* veličina */
+  height: 74px;
+  opacity: .92;
+  filter: drop-shadow(0 12px 26px rgba(0,0,0,.45));
+}
+
+.bpHeroLeaf--left{
+  left: 6%;
+  top: 50%;
+}
+
+.bpHeroLeaf--right{
+  right: 6%;
+  top: 46%;
+}
+
+.bpHeroImg{
+  width: min(2000px, 96vw);   /* ✅ povećaj sliku */
+  height: auto;
+  object-fit: contain;
+}
+
+.bpHeroArc{
+  width: min(980px, 92vw);
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  transform: translateY(-18px); /* malo spusti/podigni po želji */
+  pointer-events: none;
+}
+
+.bpHeroArcText{
+  font-family: var(--font-headers);
+  font-weight: 900;
+  font-size: 120px;            /* ✅ veličina teksta */
+  letter-spacing: 0.02em;
+  fill: rgba(255,255,255,0.96);
+  paint-order: stroke fill;
+  stroke: rgba(0,0,0,0.30);    /* malo kontrasta */
+  stroke-width: 6px;
+}
