@@ -49,7 +49,7 @@ Frontend
 cd frontend
 npm install
 cp .env.example .env.local
-npm run dev
+npm run dev```
 ---
 Screenshots
 <p>
@@ -72,4 +72,5 @@ Screenshots
   <img src="screenshots/EditProduct.png" width="48%" />
   <img src="screenshots/AdminOrders.png" width="48%" />
 </p>
+
 
